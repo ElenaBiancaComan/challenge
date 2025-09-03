@@ -1,0 +1,15 @@
+stages:
+  - run
+
+run_hello:
+  stage: run
+  image: python:3.12
+  script:
+    - echo "Running Hello World script"
+    - python app.py
+  environment:
+    name: >
+      ${CI_COMMIT_BRANCH=="main" ? "production" : (CI_COMMIT_BRANCH=="develop" ? "development" : "review")}
+  rules:
+    # Only run on main, develop, or any feature branch
+    - if: $CI_COMMIT_BRANCH =~ /^main|develop|feature\/.*$/
