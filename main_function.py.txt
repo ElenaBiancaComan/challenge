@@ -1,0 +1,9 @@
+def get_value(obj: dict, key: str, delimiter: str = "/"):
+keys = key.split(delimiter)
+   current = obj 
+    for k in keys:
+        if isinstance(current, dict) and k in current:
+            current = current[k]
+        else:
+            raise KeyError(f"Key path '{key}' not found in object")  
+    return current
